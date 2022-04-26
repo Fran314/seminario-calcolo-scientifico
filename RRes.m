@@ -6,8 +6,8 @@ function RR = RRes(A0, A1, V, LAMBDA)
 	endfor
 	
 	function val = res(A0, A1, x, l)
-		num = norm((l**2)*(A1.')*x + l*A0*x + A1*x, 2);
-		den = (abs(l)**2)*norm(A1, 'fro');
+		num = norm((l^2)*(A1.')*x + l*A0*x + A1*x, 2);
+		den = (abs(l)^2)*norm(A1, 'fro');
 		den = den + abs(l)*norm(A1, 'fro');
 		den = den + norm(A1, 'fro');
 		den = den*norm(x, 2);

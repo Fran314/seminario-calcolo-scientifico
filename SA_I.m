@@ -11,9 +11,9 @@ function [V_I, LAMBDA_I] = SA_I (A0, A1, verbose = false)
 	verbose && fprintf('- Step 2/5'); tic;
 	% Step 2: Reduce (K, N) to block upper triangular forms as in (2.5) using
 	%	unitary transformations
-	[K, N, Q, Z] = rbutf(K, N);
-	K11 = K(1:n, 1:n);
-	N11 = N(1:n, 1:n);
+	[Kn, Nn, ~, Z] = rbutf(K, N);
+	K11 = Kn(1:n, 1:n);
+	N11 = Nn(1:n, 1:n);
 	verbose && fprintf(': %f s\n', toc());
 	
 	verbose && fprintf('- Step 3/5'); tic;

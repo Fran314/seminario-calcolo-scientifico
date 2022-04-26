@@ -12,7 +12,7 @@ function [V_II, LAMBDA_II] = SA_II (A0, A1, verbose = false)
 	verbose && fprintf('- Step 2/5'); tic;
 	% Step 2: Reduce (Kt, Nt) to block upper triangular forms as in (3.7) using
 	%	unitary transformations of (3.4)-(3.6)
-	[~, ~, Ua, Va] = rbutf(Kt, Nt);
+	[Ktn, Ntn, ~, Va] = rbutf(Kt, Nt);
 	
 	P2n = complex(zeros(2*n));
 	zr = complex(zeros(2*n));
@@ -20,10 +20,9 @@ function [V_II, LAMBDA_II] = SA_II (A0, A1, verbose = false)
 		P2n(i, 2*i - 1) = 1 +0i;
 		P2n(n+i, 2*i) = 1 + 0i;
 	endfor
-	U = [P2n zr; zr P2n] * Ua;
 	V = Va * [P2n.' zr; zr P2n.'];
-	Ktn = U*Kt*V;
-	Ntn = U*Nt*V;
+	Ktn = [P2n zr; zr P2n] * Ktn * [P2n.' zr; zr P2n.'];
+	Ntn = [P2n zr; zr P2n] * Ntn * [P2n.' zr; zr P2n.'];
 	R1 = Ktn(1:n, n+1:2*n);
 	R2 = Ktn(n+1:2*n, 1:n);
 	R3 = Ntn(1:n, 1:n);
